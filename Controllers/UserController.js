@@ -41,13 +41,7 @@ class UserController {
   createUser = async (req, res, next) => {
     try {
       const { firstName, lastName, password, email, role } = req.body;
-      const result = await User.create({
-        firstName,
-        lastName,
-        password,
-        email,
-        role,
-      });
+      const result = await User.create({ firstName, lastName, password, email, role });
       if (!result.dataValues) throw new Error('User creation has failed');
       res.status(200).send({ success: true, message: 'user created successfully' });
     } catch (error) {
@@ -58,8 +52,8 @@ class UserController {
   updateUserById = async (req, res, next) => {
     try {
       const { id } = req.params;
-      const { nombre, apellido, password, email, role } = req.body;
-      const result = await User.update({nombre, apellido, password, email, role,
+      const { firstName, lastName, password, email, role } = req.body;
+      const result = await User.update({ firstName, lastName, password, email, role }, {
         where: {
           id: id,
         },

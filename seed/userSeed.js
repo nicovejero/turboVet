@@ -8,7 +8,7 @@ const userSeed = async () => {
         lastName: 'Administrador',
         password: '123456789',
         email: '123@456.789',
-        role: '1'
+        roleId: '1'
       },
     ]);
   } catch (error) {

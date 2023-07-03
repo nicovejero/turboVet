@@ -34,16 +34,12 @@ class PetController {
     try {
       const { id } = req.params;
       const { name, age, weight, isSick, owner } = req.body;
-      const result = await Pet.update({ where: {
-        id: id
-      },
-        name,
-        age,
-        weight,
-        isSick,
-        owner,
+      const result = await Pet.update({ name, age, weight, isSick, owner }, {
+        where: {
+          id: id
+        }
       });
-      if (!result.dataValues) throw new Error('Pet creation has failed');
+      if (!result) throw new Error('Pet creation has failed');
       res.status(200).send({ success: true, message: 'Pet created successfully' });
     } catch (error) {
       res.status(400).send({ success: false, result: error.message });

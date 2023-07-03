@@ -11,13 +11,13 @@ const ownerSeed = async () => {
     },{ 
       firstName: 'Marce',
       lastName: 'Wain',
-      password: '123456789',
+      password: '123456780',
       email: 'mwain@simpsons.com',
       phoneNumber: '011-1234-5678',
     },{ 
       firstName: 'Ale',
       lastName: 'Wain',
-      password: '123456789',
+      password: '123456700',
       email: 'awain@simpsons.com',
       phoneNumber: '011-1234-5678',
     },

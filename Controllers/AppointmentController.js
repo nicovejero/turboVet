@@ -5,7 +5,7 @@ class AppointmentController {
   getAllAppointments = async (req, res, next) => {
     try {
       const result = await Appointment.findAll({
-        attributes: ['doctor', 'owner', 'pet', 'description'],
+        attributes: [ 'id', 'doctor', 'owner', 'pet', 'description'],
       });
       if (result.length === 0) throw new Error('Appointments not found');
       res.status(200).send({ success: true, message: 'Appointments found', result });
@@ -18,7 +18,7 @@ class AppointmentController {
     try {
       const { id } = req.params;
       const result = await Appointment.findOne({
-        attributes: ['doctor', 'owner', 'pet', 'description'],
+        attributes: [ 'id', 'doctor', 'owner', 'pet', 'description'],
         where: {
           id: id,
         },
@@ -34,15 +34,12 @@ class AppointmentController {
     try {
       const { id } = req.params;
       const { doctor, owner, pet, description} = req.body;
-      const result = await Appointment.update({ where: {
-        id: id
-      },
-        owner,
-        doctor,
-        pet,
-        description
+      const result = await Appointment.update({ owner, doctor, pet, description }, {
+        where: {
+          id: id
+        }
       });
-      if (!result.dataValues) throw new Error('Appointment creation has failed');
+      if (!result) throw new Error('Appointment creation has failed');
       res.status(200).send({ success: true, message: 'Appointment created successfully' });
     } catch (error) {
       res.status(400).send({ success: false, result: error.message });
@@ -66,7 +63,8 @@ class AppointmentController {
   
   createAppointment = async (req, res, next) => {
     try {
-      const { doctor, owner, pet, description} = req.body;
+      const { doctor, owner, pet, description } = req.body;
+
       const result = await Appointment.create({
         owner,
         doctor,

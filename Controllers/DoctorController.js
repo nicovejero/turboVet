@@ -6,13 +6,6 @@ class DoctorController {
     try {
       const result = await Doctor.findAll({
         attributes: ['id', 'firstName', 'lastName', 'email', 'specialty'],
-        include: [
-          {
-            model: Role,
-            as: 'role',
-            attributes: ['roleName'],
-          },
-        ],
       });
       if (result.length === 0) throw new Error('doctors not found');
       res.status(200).send({ success: true, message: 'Doctors found', result });
@@ -40,19 +33,14 @@ class DoctorController {
   updateDoctorById = async (req, res, next) => {
     try {
       const { id } = req.params;
-      const { firstName, lastName, password, email, specialty, role } = req.body;
-      const result = await Doctor.update({ where: {
-        id: id
-      },
-        firstName,
-        lastName,
-        password,
-        email,
-        specialty,
-        role,
+      const { firstName, lastName, password, email, specialty } = req.body;
+      const result = await Doctor.update({ firstName, lastName, password, email, specialty }, {
+        where: {
+          id: id,
+        }
       });
-      if (!result.dataValues) throw new Error('Doctor creation has failed');
-      res.status(200).send({ success: true, message: 'Doctor created successfully' });
+      if (!result) throw new Error('Doctor update has failed');
+      res.status(200).send({ success: true, message: 'Doctor updated successfully' });
     } catch (error) {
       res.status(400).send({ success: false, result: error.message });
     }
@@ -75,14 +63,13 @@ class DoctorController {
   
   createDoctor = async (req, res, next) => {
     try {
-      const { firstName, lastName, password, email, specialty, role } = req.body;
+      const { firstName, lastName, password, email, specialty} = req.body;
       const result = await Doctor.create({
         firstName,
         lastName,
         password,
         email,
-        specialty,
-        role,
+        specialty
       });
       if (!result.dataValues) throw new Error('Doctor creation has failed');
       res.status(200).send({ success: true, message: 'Doctor created successfully' });
