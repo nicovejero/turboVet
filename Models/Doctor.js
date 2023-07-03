@@ -1,18 +1,25 @@
-import { DataTypes } from "sequelize";
-import User from "./User.js";
-import connectionDb from "../database/database.js";
+import { DataTypes, Model } from 'sequelize';
+import User from './User.js';
+import connectionDb from '../database/database.js';
 
-class Doctor extends User{}
+function getModelAttributes(model) {
+  return Object.assign({}, model.rawAttributes);
+}
 
-Doctor.init({
-    speciality: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
-},
-{
+class Doctor extends Model {}
+
+Doctor.init(
+  {
+    ...getModelAttributes(User),
+    specialty: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
     sequelize: connectionDb,
-    modelName: "Doctor"
-})
+    modelName: 'Doctor',
+  },
+);
 
 export default Doctor;

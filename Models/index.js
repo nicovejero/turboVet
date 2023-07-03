@@ -1,45 +1,45 @@
 //Imports
-import Doctor from "./Doctor.js";
-import Appointment from "./Appointment.js";
-import Owner from "./Owner.js";
-import Pet from "./Pet.js";
-import User from "./User.js";
-import Role from "./Role.js";
+import Doctor from './Doctor.js';
+import Appointment from './Appointment.js';
+import Owner from './Owner.js';
+import Pet from './Pet.js';
+import User from './User.js';
+import Role from './Role.js';
 
 //Role relations
 Role.hasMany(User, {
-    foreignKey: "roleId",
+  foreignKey: 'roleId',
 });
 
 //User relations
 User.belongsTo(Role, {
-    foreignKey: "roleId",
-    as: "role",
+  foreignKey: 'roleId',
+  as: 'role'
 });
 
 //Pet relations
-Pet.belongsToMany(Owner, {
-    foreignKey: "ownerId"
+Pet.belongsTo(Owner, {
+  foreignKey: 'ownerId',
 });
 
 //Owner relations
 Owner.hasMany(Pet, {
-    foreignKey: "petId",
-    as: "pet",
+  foreignKey: 'petId',
 });
 
 //Appointment relations
 Appointment.hasOne(Pet, {
-    foreignKey: "petId",
+  foreignKey: 'petId',
 });
 
-Appointment.hasOne(Owner, {
-    foreignKey: "userId",
+Appointment.hasMany(Owner, {
+  foreignKey: 'ownerId',
 });
 
 Appointment.hasMany(Doctor, {
-    foreignKey: "userId",
+  foreignKey: 'doctorId',
 });
 
+
 //Exports
-export { Doctor, Appointment, Owner, Pet, User, Role }
+export { Doctor, Appointment, Owner, Pet, User, Role };
