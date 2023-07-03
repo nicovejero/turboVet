@@ -1,17 +1,14 @@
-import { DataTypes, Model} from "sequelize";
+import { DataTypes } from "sequelize";
+import User from "./User.js";
 import connectionDb from "../database/database.js";
 
-class Owner extends Model{}
+class Owner extends User{}
 
 Owner.init({
-    firstName: {
+    phoneNumber: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    lastName: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
 },
 {
     sequelize: connectionDb,

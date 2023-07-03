@@ -10,10 +10,10 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
-await connectionDb.sync({force:true}).then(() => { 
+await connectionDb.sync({ force: true }).then(() => { 
 	app.listen(appPort, () => {
 		console.log("Server ok http://localhost:8080");
 	});

@@ -1,17 +1,10 @@
-import { DataTypes, Model} from "sequelize";
+import { DataTypes } from "sequelize";
+import User from "./User.js";
 import connectionDb from "../database/database.js";
 
-class Doctor extends Model{}
+class Doctor extends User{}
 
 Doctor.init({
-    firstName: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    lastName: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
     speciality: {
         type: DataTypes.STRING,
         allowNull: false

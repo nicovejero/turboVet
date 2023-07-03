@@ -1,4 +1,4 @@
-import { DataTypes, Model} from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import connectionDb from "../database/database.js";
 
 class Appointment extends Model{}
@@ -17,6 +17,10 @@ Appointment.init({
         allowNull: false
     },
     doctor: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    description: {
         type: DataTypes.STRING,
         allowNull: false
     }

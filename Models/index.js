@@ -18,7 +18,7 @@ User.belongsTo(Role, {
 });
 
 //Pet relations
-Pet.hasOne(Owner, {
+Pet.belongsToMany(Owner, {
     foreignKey: "ownerId"
 });
 
@@ -42,4 +42,4 @@ Appointment.hasMany(Doctor, {
 });
 
 //Exports
-export {Doctor, Appointment, Owner, Pet, User, Role}
+export { Doctor, Appointment, Owner, Pet, User, Role }
