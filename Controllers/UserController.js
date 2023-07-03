@@ -7,7 +7,7 @@ class UserController{
         try {
             const result= await User.findAll();
             if (result.length === 0) throw new Error("No se encontraron usuarios!");
-            res.send({ sucess: true, message: "Usuarios encontrados", result});
+            res.status(200).send({ sucess: true, message: "Usuarios encontrados", result});
         } catch (error) {
             
         }
@@ -19,9 +19,10 @@ class UserController{
                 where: {
                     id,
                 },
-            });
-            if (result.length === 0) throw new Error("No se encontró el usuario!");
-            res.send({ sucess: true, message: "Usuario encontrado", result});
+            })
+            res.status(200).send({ sucess: true, message: "User obtained successfully", result});
+            if (result.length === 0) throw new Error("User not found");
+            res.status(400).send({success: false, result:error.message});
         } catch (error) {
             
         }
@@ -30,14 +31,11 @@ class UserController{
         try {
             const {firstName, password} = req.body;
             const result= await User.create({firstName, password})
-            //   console.log("🚀 result:", result.dataValues);
-            if (!result.dataValues) throw new Error("No se pudo crear el usuario");
+            if (!result.dataValues) throw new Error("User creation failed");
             console.log("result: ", result);
-            res
-                .status(200)
-                .send("User Created Successfully")
+            res.status(200).send("User Created Successfully")
         } catch (error) {
-            res.status(400).send({success: false, result:error.message});
+            res.status(400).send({ sucess: true, message: "Usuario encontrado", result});
         }
     }
     updateUserById=async(req,res,next)=>{
@@ -48,8 +46,9 @@ class UserController{
                     id,
                 }
             })
+            res.status(200).send("User Updated Successfully")
         } catch (error) {
-            
+            res.status(400).send({success: false, result:error.message});
         }
     }
     deleteUserById=async(req,res,next)=>{
@@ -60,8 +59,9 @@ class UserController{
                     id,
                 },
             })
+            res.status(200).send("User Deleted Successfully")
         } catch (error) {
-            
+            res.status(400).send({success: false, result:error.message});
         }
     }
 }

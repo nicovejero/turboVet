@@ -8,6 +8,6 @@ petRoutes.get ("/", petController.getAllPets);
 petRoutes.get ("/:id", petController.getPetById);
 petRoutes.post ("/", petController.createPet);
 petRoutes.put ("/:id", petController.updatePetById);
-petRoutes.delete ("/:id", petController.deletePet);
+petRoutes.delete ("/:id", petController.deletePetById);
 
 export default petRoutes;
